@@ -76,22 +76,12 @@ function Nav() {
             <span>All Products</span>
           </Link>
         </li>
-        
-        {/*<!-- Divider -->*/}
-        <hr className="sidebar-divider d-none d-md-block" />
-
-        <li className="nav-item">
-          <Link className="nav-link" to="http://localhost:3100/">
-            <i className="fas fa-fw fa-chart-area"></i>
-            <span>Back</span>
-          </Link>
-        </li>
 
         {/*<!-- Divider -->*/}
         <hr className="sidebar-divider d-none d-md-block" />
 
         <li className="nav-item">
-        <a className='nav-link' role="button" target="_blank" href='http://localhost:3100/'>
+        <a className='nav-link' role="button" rel="noreferrer" href='http://localhost:3100/'>
           <i className="fas fa-fw fa-chart-area"></i>
           <span>Express</span>
         </a>

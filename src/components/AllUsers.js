@@ -1,4 +1,5 @@
 import React , {useState, useEffect} from 'react'
+import Pagination from './Pagination';
 
 import UserList from './UserList'
 
@@ -87,6 +88,16 @@ function AllUsers() {
                         </table>
                     </div>
                 </div>
+            </div>
+
+            <div>
+            {
+                users === "" ? "Cargando..." : 
+                    //console.log(this.state.movies)
+                    users.map((user,index)=>{
+                        return <Pagination key={index} {...user}/>
+                    })
+            }
             </div>
         </>
     )
