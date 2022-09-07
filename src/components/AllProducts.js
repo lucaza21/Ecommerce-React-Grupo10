@@ -6,16 +6,38 @@ function AllProducts() {
 
    
     console.log(productos.count)
-    useEffect(() => {
+    /* useEffect(() => {
         console.log("%c trayendo info de /api/products/", 'color:green');
         fetch("/api/products/")
         .then(response => response.json())
         .then(data => {
-            /* console.log(data) */
+            
             setProductos(data.productos)
             })
         .catch(error => console.log(`%c${error}`, 'color:yellow'));
         
+    }, []) */
+    
+    useEffect(() => {
+        let interval
+        const fetchData = async () =>{
+            console.log("%c trayendo info de /api/products/", 'color:green');
+            try {
+                const response = await fetch("/api/products/")
+                const result = await response.json()
+                setProductos(result.productos)
+            } catch (error){
+                console.log(`%c${error}`, 'color:yellow')
+            }
+        }
+
+        fetchData()
+        interval = setInterval(()=>{
+            fetchData()
+        }, 1*1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
   return (

@@ -7,7 +7,7 @@ function AllUsers() {
     const [users,setUsers] = useState("");
 
 
-    useEffect(() => {
+/*     useEffect(() => {
         console.log("%c trayendo info de /api/users/", 'color:green');
         fetch("/api/users/")
         .then(response => response.json())
@@ -17,7 +17,30 @@ function AllUsers() {
             })
         .catch(error => console.log(`%c${error}`, 'color:yellow'));
         
+    }, []) */
+
+    useEffect(() => {
+        let interval
+        const fetchData = async () =>{
+            console.log("%c trayendo info de /api/users/", 'color:green');
+            try {
+                const response = await fetch("/api/users/")
+                const result = await response.json()
+                setUsers(result.users)
+            } catch (error){
+                console.log(`%c${error}`, 'color:yellow')
+            }
+        }
+
+        fetchData()
+        interval = setInterval(()=>{
+            fetchData()
+        }, 1*1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
+
 
 
     return (

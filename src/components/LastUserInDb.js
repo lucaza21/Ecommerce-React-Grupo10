@@ -5,7 +5,7 @@ function LastUserInDb() {
     const [usuarios,setUsuarios] = useState("")
     const [last, setLast] = useState("")
    
-    useEffect(() => {
+  /*   useEffect(() => {
         console.log("%c trayendo info de /api/users/", 'color:green');
         fetch("/api/users/")
         .then(response2 => response2.json())
@@ -15,6 +15,28 @@ function LastUserInDb() {
             })
         .catch(error => console.log(`%c${error}`, 'color:yellow'));
         
+    }, []) */
+
+    useEffect(() => {
+        let interval
+        const fetchData = async () =>{
+            console.log("%c trayendo info de /api/users/", 'color:green');
+            try {
+                const response = await fetch("/api/users/")
+                const result = await response.json()
+                setUsuarios(result)
+            } catch (error){
+                console.log(`%c${error}`, 'color:yellow')
+            }
+        }
+
+        fetchData()
+        interval = setInterval(()=>{
+            fetchData()
+        }, 1*1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
     useEffect(() => {
@@ -22,8 +44,8 @@ function LastUserInDb() {
         if(usuarios === ""){
             return 
         }else{
-            console.log(`%c${usuarios.count}`, 'color:red');
-            const endpoint = `/api/users/${usuarios.count}`;
+            console.log(`%c${usuarios.users[usuarios.count-1].id}`, 'color:red');
+            const endpoint = `/api/users/${usuarios.users[usuarios.count-1].id}`;
             fetch(endpoint)
             .then(response => response.json())
             .then(data => {
@@ -113,6 +135,28 @@ function LastUserInDb() {
                     </div>
                 </div>
         </div>
+
+        {last === "" ? "Cargando...":
+            <>             
+            <div className="col-lg-6 mb-4">
+                <div className="card shadow mb-4" style={{maxWidth: 30 +'rem'}}>
+                    <div className="card-header py-3">
+                        <h5 className="m-0 font-weight-bold text-gray-800">Last Product in Data Base</h5>
+                    </div>
+                    <div className="card-body"  >
+                        <div className="text-center">
+                            <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{maxWidth: 20 +'rem'}} src={`http://localhost:3100${last[0].avatar}`} alt=" Star Wars - Mandalorian "/>
+                        </div>
+                        <p>Nombre: {last[0].name}</p>
+                        <p>Apellido: {last[0].lastname}</p>
+                        <p>Email: {last[0].email}</p>
+                        <a className="btn btn-danger" target="_blank" rel="nofollow" href={`${last[0].url}`}>API Detail</a>
+                    </div>
+        
+                </div>
+            </div> 
+            </>
+         } 
 
 
     

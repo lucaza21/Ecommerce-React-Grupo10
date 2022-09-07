@@ -79,7 +79,17 @@ function Nav() {
 
         {/*<!-- Divider -->*/}
         <hr className="sidebar-divider d-none d-md-block" />
+
+        <li className="nav-item">
+        <a className='nav-link' role="button" target="_blank" href='http://localhost:3100/'>
+          <i className="fas fa-fw fa-chart-area"></i>
+          <span>Express</span>
+        </a>
+        </li>
       </ul>
+
+      
+  
     <Switch>
         <Route exact path="/" component={ResumeWrapper} />
         <Route path="/lastProduct" component={LastWrapper} />

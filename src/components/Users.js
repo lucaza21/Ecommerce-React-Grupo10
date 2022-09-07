@@ -7,7 +7,7 @@ function Users() {
     const [users,setUsers] = useState("")
     const [products,setProducts] = useState("")
 
-    useEffect(() => {
+   /*  useEffect(() => {
         console.log("%c trayendo info de /api/products/", 'color:green');
         fetch("/api/products/")
         .then(response => response.json())
@@ -17,9 +17,30 @@ function Users() {
             })
         .catch(error => console.log(`%c${error}`, 'color:yellow'));
         
+    }, []) */
+    useEffect(() => {
+        let interval
+        const fetchData = async () =>{
+            console.log("%c trayendo info de /api/products/", 'color:green');
+            try {
+                const response = await fetch("/api/products/")
+                const result = await response.json()
+                setProducts(result)
+            } catch (error){
+                console.log(`%c${error}`, 'color:yellow')
+            }
+        }
+
+        fetchData()
+        interval = setInterval(()=>{
+            fetchData()
+        }, 1*1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
-    useEffect(() => {
+    /* useEffect(() => {
         console.log("%c trayendo info de /api/users/", 'color:green');
         fetch("/api/users/")
         .then(response2 => response2.json())
@@ -29,6 +50,27 @@ function Users() {
             })
         .catch(error => console.log(`%c${error}`, 'color:yellow'));
         
+    }, []) */
+    useEffect(() => {
+        let interval
+        const fetchData = async () =>{
+            console.log("%c trayendo info de /api/users/", 'color:green');
+            try {
+                const response = await fetch("/api/users/")
+                const result = await response.json()
+                setUsers(result)
+            } catch (error){
+                console.log(`%c${error}`, 'color:yellow')
+            }
+        }
+
+        fetchData()
+        interval = setInterval(()=>{
+            fetchData()
+        }, 1*1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
     
 
