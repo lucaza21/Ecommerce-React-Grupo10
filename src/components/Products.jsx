@@ -105,7 +105,23 @@ function Products(props) {
     return newTotal;
   };
 
+  const actualizarProductos = () => {
+    if (productos == ""){
+      return
+    }
+    const cartList = cart.map(item => item.id) 
+    console.log("cartList: ", cartList)
 
+    const prodList = productos.filter(item =>{
+      return !cartList.includes(item.id)
+    }) 
+    console.log("prodList: ", prodList)
+    alert("compra exitosa");
+    setProductos(prodList)
+    setCart([])
+
+   
+  }
 
   return (
     <>
@@ -160,8 +176,8 @@ function Products(props) {
             <Col>
               <Card className="text-dark text-center m-1 card bg-warning">
                 <Card.Header>
-                  <Button onClick={() => alert("Compra exitosa")}>
-                    CheckOut $ {finalList().total}
+                  <Button onClick={() => actualizarProductos()}>
+                    Total $ {finalList().total}
                   </Button>
                 </Card.Header>
                 <ListGroup variant="flush">
