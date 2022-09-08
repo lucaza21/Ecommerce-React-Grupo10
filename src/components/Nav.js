@@ -6,6 +6,7 @@ import LastWrapper from './LastWrapper';
 import CategoryWrapper from './CategoryWrapper';
 import AllUsersWrapper from './AllUsersWrapper';
 import AllProductsWrapper from './AllProductsWrapper';
+import Products from './Products';
 
 function Nav() {
   return (
@@ -86,6 +87,19 @@ function Nav() {
           <span>Express</span>
         </a>
         </li>
+
+
+        {/*<!-- Divider -->*/}
+        <hr className="sidebar-divider d-none d-md-block" />
+
+        <li className="nav-item">
+          <Link className="nav-link" to="/cart">
+            <i className="fas fa-fw fa-chart-area"></i>
+            <span>Cart</span>
+          </Link>
+        </li>
+
+
       </ul>
 
       
@@ -96,6 +110,7 @@ function Nav() {
         <Route path="/categories" component={CategoryWrapper} />
         <Route path="/allUsers" component={AllUsersWrapper} />
         <Route path="/allProducts" component={AllProductsWrapper} />
+        <Route path="/cart" component={Products} />
     </Switch>
     </>
   );
